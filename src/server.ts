@@ -14,7 +14,7 @@ mongoose
   .connect(MONGODB_URL)
   .then(() => console.log('Connected to MongoDB'))
   .then(() => app.listen(PORT || 8080))
-  .catch((err) => {
-    console.error('Failed to connect to MongoDB Atlas:', err.errmsg || err);
+  .catch((err: Error) => {
+    console.error('Failed to connect to MongoDB Atlas:', err);
     process.exit(1);
   });
