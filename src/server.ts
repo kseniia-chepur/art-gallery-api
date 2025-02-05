@@ -20,4 +20,4 @@ mongoose
     console.log('Connected to MongoDB');
     app.listen(PORT || 8080);
   })
-  .catch((err: Error) => console.error('Error connecting to MongoDB:', err));
+  .catch((err: Error) => console.error('Error connecting to MongoDB:', err.message || err));

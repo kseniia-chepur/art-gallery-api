@@ -2,12 +2,12 @@
   "name": "art-gallery-api",
   "version": "1.0.0",
   "description": "Web API for managing art listings in the art gallery",
-  "main":  "dist/server.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node src/server.ts",
-    "start": "node dist/server.js" 
+    "start": "node dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "joi": "^17.13.3",
     "mongoose": "^8.9.7",
     "nodemon": "^3.1.9"
   },
