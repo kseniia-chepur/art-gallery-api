@@ -4,7 +4,8 @@ import {
   validateArtworkDataWithJoiOnUpdate,
 } from '../utils/validation/artwork.validation';
 import * as artworkService from '../services/artwork.service';
-import { Artwork } from '../models/artwork.model';
+import { ErrorMsg } from '../utils/constants/errorMsg.enum';
+import { HTTPCodes } from '../utils/constants/httpCodes.enum';
 
 const validateArtworkDataOnCreate = (
   req: Request,
@@ -14,7 +15,7 @@ const validateArtworkDataOnCreate = (
   const { value, error } = validateArtworkDataWithJoiOnCreate(req.body);
 
   if (error) {
-    res.status(400).json({ message: error.message });
+    res.status(HTTPCodes.BAD_REQUEST).json({ message: error.message });
     return;
   }
 
@@ -30,7 +31,7 @@ const validateArtworkDataOnUpdate = (
   const { value, error } = validateArtworkDataWithJoiOnUpdate(req.body);
 
   if (error) {
-    res.status(400).json({ message: error.message });
+    res.status(HTTPCodes.BAD_REQUEST).json({ message: error.message });
     return;
   }
 
@@ -46,22 +47,19 @@ const validateArtworkId = async (
   try {
     const { id } = req.params;
 
-    if (!id) {
-      res.status(400).json({ message: 'Id is required' });
-      return;
-    }
-
     const isIdValid = artworkService.verifyIfIdValid(id);
     const isIdExists = await artworkService.verifyIfIdExists(id);
 
     if (!isIdValid || !isIdExists) {
-      res.status(404).json({ message: 'Id is not valid or does not exist' });
+      res.status(HTTPCodes.NOT_FOUND).json({ message: ErrorMsg.INVALID_ID });
       return;
     }
 
     next();
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res
+      .status(HTTPCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: ErrorMsg.INTERNAL_SERVER_ERROR });
   }
 };
 
