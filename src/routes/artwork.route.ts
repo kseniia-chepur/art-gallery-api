@@ -10,12 +10,21 @@ router.post(
   artworkController.createArtwork
 );
 router.get('/', artworkController.getAllArtworks);
-router.get('/:id', artworkController.getOneArtwork);
+router.get(
+  '/:id',
+  artworkMiddleware.validateArtworkId,
+  artworkController.getOneArtwork
+);
 router.put(
   '/:id',
+  artworkMiddleware.validateArtworkId,
   artworkMiddleware.validateArtworkDataOnUpdate,
   artworkController.updateArtwork
 );
-router.delete('/:id');
+router.delete(
+  '/:id',
+  artworkMiddleware.validateArtworkId,
+  artworkController.deleteArtwork
+);
 
 export { router };
