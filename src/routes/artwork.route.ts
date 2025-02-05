@@ -4,8 +4,13 @@ import * as artworkMiddleware from '../middlewares/artwork.middleware';
 
 const router = Router();
 
-router.post('/', artworkController.createArtwork);
-router.get('/:id');
+router.post(
+  '/',
+  artworkMiddleware.validateArtworkData,
+  artworkController.createArtwork
+);
+router.get('/', artworkController.getAllArtworks);
+router.get('/:id', artworkController.getOneArtwork);
 router.put('/:id');
 router.delete('/:id');
 

@@ -9,7 +9,8 @@ const validateArtworkData = (
   const { value, error } = validateArtworkDataWithJoi(req.body);
 
   if (error) {
-    return res.status(400).json({ message: error.message });
+    res.status(400).json({ message: error.message });
+    return;
   }
 
   req.body = value;

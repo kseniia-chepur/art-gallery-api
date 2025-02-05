@@ -3,4 +3,8 @@ import { ArtworkData } from '../utils/types/artwork.interface';
 
 const createArtwork = (artworkData: ArtworkData ) => Artwork.create(artworkData);
 
-export { createArtwork };
+const getAllArtworks = () => Artwork.find();
+
+const getArtworkById = (id: string) => Artwork.findById(id);
+
+export { createArtwork, getAllArtworks, getArtworkById };
