@@ -1,12 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
-import { validateArtworkDataWithJoi } from '../utils/validation/artwork.validation';
+import {
+  validateArtworkDataWithJoiOnCreate,
+  validateArtworkDataWithJoiOnUpdate,
+} from '../utils/validation/artwork.validation';
 
-const validateArtworkData = (
+const validateArtworkDataOnCreate = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { value, error } = validateArtworkDataWithJoi(req.body);
+  const { value, error } = validateArtworkDataWithJoiOnCreate(req.body);
 
   if (error) {
     res.status(400).json({ message: error.message });
@@ -17,4 +20,20 @@ const validateArtworkData = (
   next();
 };
 
-export { validateArtworkData };
+const validateArtworkDataOnUpdate = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { value, error } = validateArtworkDataWithJoiOnUpdate(req.body);
+
+  if (error) {
+    res.status(400).json({ message: error.message });
+    return;
+  }
+
+  req.body = value;
+  next();
+};
+
+export { validateArtworkDataOnCreate, validateArtworkDataOnUpdate };

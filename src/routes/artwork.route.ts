@@ -6,12 +6,16 @@ const router = Router();
 
 router.post(
   '/',
-  artworkMiddleware.validateArtworkData,
+  artworkMiddleware.validateArtworkDataOnCreate,
   artworkController.createArtwork
 );
 router.get('/', artworkController.getAllArtworks);
 router.get('/:id', artworkController.getOneArtwork);
-router.put('/:id');
+router.put(
+  '/:id',
+  artworkMiddleware.validateArtworkDataOnUpdate,
+  artworkController.updateArtwork
+);
 router.delete('/:id');
 
 export { router };

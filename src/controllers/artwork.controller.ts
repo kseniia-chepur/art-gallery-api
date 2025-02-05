@@ -49,4 +49,21 @@ const getOneArtwork = async (req: Request, res: Response) => {
   }
 };
 
-export { createArtwork, getAllArtworks, getOneArtwork };
+const updateArtwork = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updatedArtwork = await artworkService.updateArtwork(id, req.body);
+    
+    if (!updatedArtwork) {
+      res.status(404).json({ message: 'Artwork not found' });
+      return;
+    }
+    res.status(200).json(updatedArtwork);
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : 'Internal server error';
+    res.status(500).json({ message });
+  }
+};
+
+export { createArtwork, getAllArtworks, getOneArtwork, updateArtwork };
