@@ -18,7 +18,9 @@ const createArtwork = async (req: Request, res: Response) => {
 
 const getAllArtworks = async (req: Request, res: Response) => {
   try {
-    const artworks = await artworkService.getAllArtworks();
+    const artworks = Object.keys(req.query).length
+      ? await artworkService.getArtworksByQuery(req.query)
+      : await artworkService.getAllArtworks();
 
     if (!artworks.length) {
       res

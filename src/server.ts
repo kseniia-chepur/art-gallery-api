@@ -10,7 +10,7 @@ config();
 app.use(express.json());
 app.use(cors());
 
-app.use('/artwork', router);
+app.use('/artworks', router);
 
 const { PORT, MONGODB_URL } = process.env;
 
