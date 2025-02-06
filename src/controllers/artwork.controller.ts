@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import * as artworkService from '../services/artwork.service';
 import { ErrorMsg } from '../utils/constants/errorMsg.enum';
 import { HTTPCodes } from '../utils/constants/httpCodes.enum';
+import { handleServerError } from '../utils/handleServerError';
 
 const createArtwork = async (req: Request, res: Response) => {
   try {
@@ -10,8 +11,7 @@ const createArtwork = async (req: Request, res: Response) => {
 
     res.status(HTTPCodes.CREATED).json(newArtwork);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : ErrorMsg.INTERNAL_SERVER_ERROR;
+    const message = handleServerError(error);
     res.status(HTTPCodes.INTERNAL_SERVER_ERROR).json({ message });
   }
 };
@@ -31,8 +31,7 @@ const getAllArtworks = async (req: Request, res: Response) => {
 
     res.status(HTTPCodes.OK).json(artworks);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : ErrorMsg.INTERNAL_SERVER_ERROR;
+    const message = handleServerError(error);
     res.status(HTTPCodes.INTERNAL_SERVER_ERROR).json({ message });
   }
 };
@@ -44,8 +43,7 @@ const getOneArtwork = async (req: Request, res: Response) => {
 
     res.status(HTTPCodes.OK).json(artwork);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : ErrorMsg.INTERNAL_SERVER_ERROR;
+    const message = handleServerError(error);
     res.status(HTTPCodes.INTERNAL_SERVER_ERROR).json({ message });
   }
 };
@@ -57,8 +55,7 @@ const updateArtwork = async (req: Request, res: Response) => {
 
     res.status(HTTPCodes.OK).json(updatedArtwork);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : ErrorMsg.INTERNAL_SERVER_ERROR;
+    const message = handleServerError(error);
     res.status(HTTPCodes.INTERNAL_SERVER_ERROR).json({ message });
   }
 };
@@ -70,8 +67,7 @@ const deleteArtwork = async (req: Request, res: Response) => {
 
     res.sendStatus(HTTPCodes.NO_CONTENT);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : ErrorMsg.INTERNAL_SERVER_ERROR;
+    const message = handleServerError(error);
     res.status(HTTPCodes.INTERNAL_SERVER_ERROR).json({ message });
   }
 };

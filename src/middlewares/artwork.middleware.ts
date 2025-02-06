@@ -6,6 +6,7 @@ import {
 import * as artworkService from '../services/artwork.service';
 import { ErrorMsg } from '../utils/constants/errorMsg.enum';
 import { HTTPCodes } from '../utils/constants/httpCodes.enum';
+import { handleServerError } from '../utils/handleServerError';
 
 const validateArtworkDataOnCreate = (
   req: Request,
@@ -57,9 +58,8 @@ const validateArtworkId = async (
 
     next();
   } catch (error) {
-    res
-      .status(HTTPCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: ErrorMsg.INTERNAL_SERVER_ERROR });
+    const message = handleServerError(error);
+    res.status(HTTPCodes.INTERNAL_SERVER_ERROR).json({ message });
   }
 };
 
