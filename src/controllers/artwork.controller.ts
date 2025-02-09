@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import * as artworkService from '../services/artwork.service';
-import { ErrorMsg } from '../utils/constants/errorMsg.enum';
 import { HTTPCodes } from '../utils/constants/httpCodes.enum';
 import { handleServerError } from '../utils/handleServerError';
 
@@ -21,14 +20,7 @@ const getAllArtworks = async (req: Request, res: Response) => {
     const artworks = Object.keys(req.query).length
       ? await artworkService.getArtworksByQuery(req.query)
       : await artworkService.getAllArtworks();
-
-    if (!artworks.length) {
-      res
-        .status(HTTPCodes.NOT_FOUND)
-        .json({ message: ErrorMsg.NO_ENTITY_FOUND });
-      return;
-    }
-
+ 
     res.status(HTTPCodes.OK).json(artworks);
   } catch (error) {
     const message = handleServerError(error);
