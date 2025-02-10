@@ -7,13 +7,10 @@ import { router } from './routes/artwork.route';
 const app = express();
 config();
 
-const { PORT, FE_URL, MONGODB_URL } = process.env;
+const { PORT, MONGODB_URL } = process.env;
 
 app.use(express.json());
-app.use(cors({  
-  origin: FE_URL,
-  credentials: true,
-}));
+app.use(cors());
 
 app.use('/artworks', router);
 
